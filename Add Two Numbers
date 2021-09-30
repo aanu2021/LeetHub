@@ -1,0 +1,95 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    void insert(ListNode*&head,int data){
+      ListNode*n=new ListNode(data);
+        
+        if(head==NULL){
+            head=n;
+            return;
+        }
+        
+        ListNode*temp=head;
+        while(temp->next!=NULL){
+        temp=temp->next;
+        }
+        
+        temp->next=n;
+    }
+    
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+     /* vector<int>vec1;
+        vector<int>vec2;
+        ListNode*ptr1=l1;
+        ListNode*ptr2=l2;*/
+        
+        string s1="";
+        string s2="";
+        
+        while(l1!=NULL){
+           s1+=to_string(l1->val);
+            l1=l1->next;
+        }
+        
+         while(l2!=NULL){
+           s2+=to_string(l2->val);
+            l2=l2->next;
+        }
+        
+        reverse(s1.begin(),s1.end());
+        reverse(s2.begin(),s2.end());
+        
+        string res="";
+        
+        int i=s1.length()-1;
+        int j=s2.length()-1;
+        
+        
+        int bit,carry=0;
+        while(i>=0 || j>=0){
+            bit=carry;
+            if(i>=0){
+              bit+=s1[i]-'0';
+                i--;  
+            }
+            
+            if(j>=0){
+            bit+=s2[j]-'0';
+                j--;
+            }
+            
+            carry=bit/10;
+            bit=bit%10;
+            
+            res=to_string(bit)+res;
+            
+        }
+        
+        if(carry!=0){
+           
+         res=to_string(carry)+res;
+            
+        }
+        
+       
+        
+        ListNode*head=NULL;
+        for(int k=res.length()-1;k>=0;k--){
+            
+            insert(head,res[k]-'0');
+            
+        }
+        
+        return head;
+        
+    }
+};
